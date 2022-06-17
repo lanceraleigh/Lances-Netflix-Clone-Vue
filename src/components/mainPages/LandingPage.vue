@@ -85,6 +85,7 @@ export default {
     return {
       login: () => {
         loginWithRedirect();
+        this.$store.commit("setUserIsAuthorized", isAuthenticated);
         this.$store.commit("setUser", user);
       },
       user,

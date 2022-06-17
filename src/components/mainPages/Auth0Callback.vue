@@ -1,8 +1,6 @@
 <template>
   <div>Wrapping up authentication...</div>
-  <router-link to="/moviemain/"
-    >Continue to {{ user._rawValue.profile }}'s Accopunt?'</router-link
-  >
+  <router-link to="/moviemain/">Continue to your Account?'</router-link>
 </template>
 <script>
 /* eslint-disable */

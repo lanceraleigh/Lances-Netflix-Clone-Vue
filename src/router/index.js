@@ -4,7 +4,8 @@ import Signin from "../components/mainPages/SignIn.vue";
 import MovieMain from "../components/mainPages/MovieMain.vue";
 import movieHome from "../components/mainPages/movieHome.vue";
 import myList from "../components/mainPages/myList.vue";
-import { authenticationGuard } from "@/auth/authenticationGuard";
+import ProfilePage from "../components/mainPages/ProfilePage.vue";
+// import { authenticationGuard } from "@/auth/authenticationGuard";
 // import Auth0Callback from "../components/mainPages/Auth0Callback.vue";
 import Store from "../store";
 // import NodeJS from "node.js";
@@ -29,20 +30,25 @@ const routes = [
     path: "/moviemain",
     name: "MovieMain",
     component: MovieMain,
-    beforeEnter: authenticationGuard,
-    // meta: { authRequired: true },
+    // beforeEnter: authenticationGuard,
+    meta: { authRequired: true },
     children: [
       {
         path: "/moviemain/",
         name: "movieHome",
         component: movieHome,
-        beforeEnter: authenticationGuard,
+        // beforeEnter: authenticationGuard,
       },
       {
         path: "/moviemain/mylist",
         name: "MyList",
         component: myList,
-        beforeEnter: authenticationGuard,
+        // beforeEnter: authenticationGuard,
+      },
+      {
+        path: "/moviemain/profile",
+        name: "ProfilePage",
+        component: ProfilePage,
       },
     ],
   },
@@ -70,7 +76,7 @@ router.beforeEach((to, from, next) => {
     if (Store.state.userIsAuthorized) {
       next();
     } else {
-      router.replace("/signin");
+      router.replace("/");
       alert("Please Login to Proceed");
     }
   } else {

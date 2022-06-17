@@ -1,23 +1,38 @@
 <template>
-  <div>
-    <div class="row align-items-center profile-header">
-      <div class="col-md-2 mb-3">
-        <img
-          :src="$auth.user.picture"
-          alt="User's profile picture"
-          class="rounded-circle img-fluid profile-picture"
-        />
-      </div>
-      <div class="col-md text-center text-md-left">
-        <h2>{{ $auth.user.name }}</h2>
-        <p class="lead text-muted">{{ $auth.user.email }}</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <pre class="col-12 text-light bg-dark p-4">{{
-        JSON.stringify($auth.user, null, 2)
-      }}</pre>
-    </div>
-  </div>
+  <img v-bind:src="user.picture" alt="User Profile Pic" />
+  <h3>Username:</h3>
+  <p>{{ user.nickname }}</p>
+  <h3>Email:</h3>
+  <p>{{ user.email }}</p>
+  <h3>User Id:</h3>
+  <p>{{ user.sub }}</p>
+  <button @click="logout">Logout</button>
 </template>
+<script>
+import { useAuth0 } from "@auth0/auth0-vue";
+
+export default {
+  name: "ProfilePage",
+  setup() {
+    const { logout, user, isAuthenticated } = useAuth0();
+
+    if (!isAuthenticated) {
+      this.$router.replace("/");
+    }
+    return {
+      logout: () => {
+        logout({ returnTo: "http://localhost:8080/" });
+      },
+      user,
+    };
+  },
+};
+</script>
+<style scoped>
+#movies_showcase {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: #000;
+}
+</style>
